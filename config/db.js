@@ -4,7 +4,10 @@ const db = config.get('mongoURI'); // getting value from default.json via npm pa
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, { useNewUrlParser: true });
+    await mongoose.connect(db, {
+      useNewUrlParser: true, // option to avoid error
+      useCreateIndex: true // option to avoid error
+    });
     console.log('MongoDB connected!');
   } catch (err) {
     console.error(err.message);
