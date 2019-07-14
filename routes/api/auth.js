@@ -15,6 +15,7 @@ const User = require('../../models/User');
 router.get('/', auth, async (req, res) => {  // by adding auth as a second parameter it makes this route protected
     try {
         // user id was decoded into the token so access to req.user.id is granted
+        console.log('auth route => ', req.user)
         const user = await User.findById(req.user.id).select('-password');
         res.json(user);
     } catch (err) {
@@ -67,7 +68,7 @@ router.post('/', [
         { expiresIn: 360000 }, // in production expiration date will be set to 1 hour
         (err, token) => {
             if (err) throw err;
-            console.log(token)
+            console.log('TOKEN => ', token);
             res.json({ token, userId: user.id })
         }
     ) 
