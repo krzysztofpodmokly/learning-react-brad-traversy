@@ -37,7 +37,7 @@ router.post(
 
     try {
       // 1. Check if user exists
-      let user = await User.findOne({ email: email });
+      let user = await User.findOne({ email });
       if (user) {
         return res
           .status(400)
@@ -81,11 +81,11 @@ router.post(
         (err, token) => {
           if (err) throw err;
           console.log(token);
-          res.json({ token, userId: user.id });
+          res.json({ token });
         }
       );
 
-      res.send('User registered in database!');
+      // res.send('User registered in database!');
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
