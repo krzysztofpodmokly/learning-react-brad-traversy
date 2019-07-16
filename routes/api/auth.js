@@ -81,7 +81,7 @@ router.post(
         }
       );
 
-      res.send('User logged!');
+      // res.send('User logged!');
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
