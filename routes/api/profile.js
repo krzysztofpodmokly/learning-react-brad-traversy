@@ -8,6 +8,7 @@ const { check, validationResult } = require('express-validator');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 
 // @route   GET api/profile/me
 // @desc    Get current users profile
@@ -105,6 +106,7 @@ router.post(
       // Create => Check postman Profiles => Create and Update User's Profile
       profile = new Profile(profileFields);
       await profile.save();
+      console.log('Profile => ', profile);
       res.json(profile);
     } catch (err) {
       console.error(err.message);
@@ -152,7 +154,9 @@ router.get('/user/:user_id', async (req, res) => {
 // @access  Private
 router.delete('/', auth, async (req, res) => {
   try {
-    // @todo - remove users posts
+    // Remove users posts
+    await Post.deleteMany({ user: req.user.id });
+
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
 
