@@ -67,7 +67,6 @@ const EditProfile = ({
 
   const onFormSubmit = e => {
     e.preventDefault();
-    console.log(formData);
     createProfile(formData, history, true);
   };
 
